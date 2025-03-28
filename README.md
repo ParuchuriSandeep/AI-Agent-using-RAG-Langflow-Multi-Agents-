@@ -80,16 +80,24 @@ Based on this analysis, the Manager Agent decides which agent or agents should p
 
 5.FAQ Agent Path (for FAQ-related queries):
 If the Manager Agent determines the query is related to frequently asked questions, it routes the query to the FAQ Agent.
+
 5.1 FAQ Agent to Astra DB: The FAQ Agent formulates a query for the Astra DB vector database. This query is designed to retrieve FAQ entries that are semantically similar to the user's query. The query uses the vector embeddings.
+
 5.2 Astra DB Retrieval: Astra DB performs a similarity search using the query vector. It identifies the FAQ entries whose embeddings are most similar to the query's embedding. Astra DB returns these relevant FAQ entries to the FAQ Agent.
+
 5.3 LLM Contextualization and Response Generation: The FAQ Agent receives the relevant FAQ entries from Astra DB. The FAQ Agent then combines these retrieved FAQ entries with the original user query. This combined information is provided as context to the LLM. The LLM uses this context to generate a natural language response that directly answers the user's question, drawing upon the information from the FAQ entries.
+
 For example, if the user asks, "How long does shipping take?", the FAQ Agent might retrieve FAQ entries like "Shipping Time: 3-5 business days" and "Shipping Options: Express and Standard." The LLM would then use this information to generate a response like, "Shipping typically takes 3-5 business days. We offer both Express and Standard shipping options."
 
 Order Lookup Agent Path (for order-related queries):
 If the Manager Agent determines the query is related to order information, it routes the query to the Order Lookup Agent.
+
 6.1 Order Lookup Agent to Order Database: The Order Lookup Agent constructs an SQL query to retrieve the relevant order information from the Order Database. The specific SQL query will depend on the user's request (e.g., retrieving order status, order details, or shipping address).
+
 6.2 Order Database Query and Retrieval: The Order Database executes the SQL query and retrieves the requested order information. The database returns this data to the Order Lookup Agent.
+
 6.3 Order Lookup Agent Response Formatting: The Order Lookup Agent receives the raw order data from the database. It then formats this data into a user-friendly response. This might involve:
+
 Extracting the relevant fields (e.g., order status, shipping date, items ordered).
 Formatting dates and numbers.
 Constructing a clear and concise message.
